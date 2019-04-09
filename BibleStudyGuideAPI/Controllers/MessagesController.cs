@@ -65,9 +65,20 @@ namespace BibleStudyGuideAPI.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public ActionResult Put(int id, [FromBody]Message message)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                db.Entry(message).State = EntityState.Modified;
+                db.SaveChanges();
+                return AcceptedAtAction("Put", new { id = message.MessageID }, message);
+            }
         }
+
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
