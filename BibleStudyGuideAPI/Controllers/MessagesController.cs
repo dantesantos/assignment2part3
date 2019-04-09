@@ -78,12 +78,22 @@ namespace BibleStudyGuideAPI.Controllers
                 return AcceptedAtAction("Put", new { id = message.MessageID }, message);
             }
         }
-
-
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            var message = db.Messages.SingleOrDefault(p => p.MessageID == id);
+            if (message == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                db.Messages.Remove(message);
+                db.SaveChanges();
+                return Ok();
+            }
         }
     }
 }
+
