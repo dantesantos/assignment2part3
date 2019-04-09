@@ -48,9 +48,20 @@ namespace BibleStudyGuideAPI.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public ActionResult Post([FromBody]Message message)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                db.Messages.Add(message);
+                db.SaveChanges();
+                return CreatedAtAction("Post", new { id = message.MessageID }, message);
+            }
         }
+
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
