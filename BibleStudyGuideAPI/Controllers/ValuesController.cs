@@ -10,7 +10,7 @@ namespace BibleStudyGuideAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
+        // GET api/values = this is the default method that is shown first
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -21,7 +21,7 @@ namespace BibleStudyGuideAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return "value:" + id.ToString();
         }
 
         // POST api/values
@@ -30,7 +30,7 @@ namespace BibleStudyGuideAPI.Controllers
         {
         }
 
-        // PUT api/values/5
+        // PUT api/values/5 = Used for updating
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
