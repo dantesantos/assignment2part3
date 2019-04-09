@@ -31,10 +31,20 @@ namespace BibleStudyGuideAPI.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult Get(int id)
         {
-            return "value";
+            var message = db.Messages.SingleOrDefault(p => p.MessageID == id);
+
+            if (message == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(message);
+            }
         }
+
 
         // POST api/<controller>
         [HttpPost]
